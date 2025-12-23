@@ -16,7 +16,7 @@ router.get("/logout", userAuth, logoutUser);
 
 router.get("/profile", userAuth, userProfile)
 
-router.post("/passwords/forgot/reset", sendResetPasswordOtp);
+router.post("/password/forgot/reset", sendResetPasswordOtp);
 
 router.post("/password/forgot/reset/otp-verification", verifyResetPasswordOtp);
 
