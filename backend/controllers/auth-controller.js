@@ -4,6 +4,8 @@ const generateToken = require("../utils/generateToken");
 const hashPassword = require("../utils/hashPassword");
 const bcrypt = require("bcrypt");
 const isValidEmail = require("../utils/isValidEmail");
+const { sendResetMail } = require("../utils/sendMail");
+const { generateOtp } = require("../utils/generateOtp");
 
 // register user
 module.exports.registerUser = async (req, res) => {
@@ -118,3 +120,92 @@ module.exports.userProfile = async (req, res) => {
         res.status(404).json({ error: "profile not found" });
     }
 };
+
+
+// reset password
+module.exports.sendResetPasswordOtp = async (req, res) => {
+    const { email } = req.body;
+
+    if(!email) {
+        return res.status(400).json({error: "Email is needed to reset password"});
+    }
+
+    if(!isValidEmail(email)) {
+        return res.status(400).json({error: "Invalid email"});
+    }
+
+    try {
+        const user = await userModel.findOne({ email });
+        if(!user) {
+            return res.status(404).json({error: "User not found"});
+        }
+        const otp = generateOtp();
+        user.resetOtp = otp;
+        user.resetOtpExpiry = Date.now() + (10 * 60 * 1000);
+
+        await user.save();
+
+        await sendResetMail(email, otp);
+
+        res.status(200).json({ message: "otp sent for password reset" });
+
+    } catch (error) {
+        res.status(404).json({error: "Something went wrong"})
+    }
+}
+
+
+// verify reset password otp
+module.exports.verifyResetPasswordOtp = async (req, res) => {
+    const { otp } = req.body;
+
+    if(!otp) {
+        return res.status(400).json({error: "Enter reset password otp"});
+    }
+
+    try {
+        const user = await userModel.findOne({ resetOtp: otp });
+        if(!user) {
+            res.status(400).json({error: "Invalid or Expired otp"});
+        }
+
+        if(user.resetOtpExpiry < Date.now()) {
+            res.status(400).json({ error: "Otp is expired or invalid" });
+        }
+
+        user.resetOtp = undefined;
+        user.resetOtpExpiry = undefined;
+
+        await user.save();
+
+        res.status(200).json({message: "otp verified"});
+
+    } catch (error) {
+        res.status(400).json({error: "Envalid otp"});
+    }
+}
+
+// update the password
+module.exports.passwordResetUpdate = async (req, res) => {
+    const { password, email } = req.body;
+
+    if(!password) {
+        res.status(400).json({ error: "Enter password to update" });
+    }
+
+    try {
+        const user = await userModel.findOne({ email });
+        if(!user) {
+            res.status(404).json({error: "Invalid user"});
+        }
+
+        const hashedPassword = await hashPassword(password);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: "Password updated successfully", success: true });
+    } catch (error) {
+        res.status(500).json({ error: "Something went wrong" });
+    }
+}

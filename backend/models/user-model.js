@@ -29,6 +29,15 @@ const userSchema = new mongoose.Schema(
                 ref: "Voult",
             },
         ],
+
+        // password reset
+        resetOtp: {
+            type: String,
+        },
+
+        resetOtpExpiry: {
+            type: Date,
+        }
     },
     { timestamps: true }
 );
