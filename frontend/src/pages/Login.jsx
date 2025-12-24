@@ -6,8 +6,7 @@ import { useAuth } from "../contexts/UserContextProvider";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { Helmet } from "react-helmet";
-
-const BASE_URI = import.meta.env.VITE_BASE_URI;
+import { BASE_URI } from "../config";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -71,7 +70,7 @@ const Login = () => {
 
     return (
         <>
-        {/* seo content */}
+            {/* seo content */}
             <Helmet>
                 <title>Login | PassGuard</title>
                 <meta
@@ -139,14 +138,20 @@ const Login = () => {
                                 )}
                             </span>
                         </div>
-                        <div className="mt-5 flex flex-col sm:flex-row gap-2 text-sm text-gray-600 font-semibold items-center">
-                            <p>New here?</p>
-                            <Link
-                                to={"/signup"}
-                                className="text-primary underline"
-                            >
-                                Create account
-                            </Link>
+                        <div className="mt-5 flex flex-col sm:flex-row gap-2 text-sm text-gray-600 font-semibold items-center justify-between">
+                            <div className="flex gap-1">
+                                <p>New here?</p>
+                                <Link
+                                    to={"/signup"}
+                                    className="text-primary underline"
+                                >
+                                    Create account
+                                </Link>
+                            </div>
+                            <div className="flex gap-1">
+                                <p>Forgot password?</p>
+                                <Link to={"/user/password/forgot/reset"} className="text-primary underline">reset here</Link>
+                            </div>
                         </div>
                         <div className="mt-10 h-10">
                             <div className="text-red-500 text-sm text-center my-2">

@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/UserContextProvider";
-
-const BASE_URI = import.meta.env.VITE_BASE_URI;
+import { BASE_URI } from "../config";
 
 const LogOut = ({className, ...props}) => {
     const navigate = useNavigate();

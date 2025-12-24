@@ -10,8 +10,7 @@ import { HiPencilSquare } from "react-icons/hi2";
 import AddPassword from "../components/AddPassword";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-
-const BASE_URI = import.meta.env.VITE_BASE_URI;
+import { BASE_URI } from "../config";
 
 const Voult = () => {
     const [voults, setVoults] = useState([]);

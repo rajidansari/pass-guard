@@ -4,8 +4,8 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import generatePassword from "../../utils/generatePassword";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { BASE_URI } from "../config";
 
-const BASE_URI = import.meta.env.VITE_BASE_URI;
 
 const AddPassword = React.forwardRef(
     ({ showPasswordPanel, setShowPasswordPanel, voult }, ref) => {

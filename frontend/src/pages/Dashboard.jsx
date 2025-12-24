@@ -8,8 +8,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CgProfile } from "react-icons/cg";
 import { Helmet } from "react-helmet";
-
-const BASE_URI = import.meta.env.VITE_BASE_URI;
+import { BASE_URI } from "../config";
 
 const Dashboard = () => {
     const [voults, setVoults] = useState([]);

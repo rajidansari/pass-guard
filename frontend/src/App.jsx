@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Voult from "./pages/Voult";
+import ResetPassword from "./pages/ResetPassword";
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/user/password/forgot/reset" element={<ResetPassword />} />
                 <Route
                     path="/dashboard"
                     element={
@@ -29,6 +31,7 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 />
+
             </Routes>
         </main>
     );

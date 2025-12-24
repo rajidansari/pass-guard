@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/UserContextProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Helmet } from "react-helmet";
-
-const BASE_URI = import.meta.env.VITE_BASE_URI;
+import { BASE_URI } from "../config";
 
 const Signup = () => {
     const [fullname, setFullname] = useState("");

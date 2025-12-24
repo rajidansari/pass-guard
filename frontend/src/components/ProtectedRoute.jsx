@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/UserContextProvider";
 import axios from "axios";
+import { BASE_URI } from "../config";
 
 const ProtectedRoute = ({ children }) => {
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const ProtectedRoute = ({ children }) => {
             navigate("/login");
             return;
         } else {
-            axios.get(`${import.meta.env.VITE_BASE_URI}/user/profile`, {
+            axios.get(`${BASE_URI}/user/profile`, {
                     withCredentials: true,
                 })
                 .then((res) => {
