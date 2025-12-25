@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.use(cors({
     // origin: "https://passguard0.vercel.app",
-    origin: "http://localhost:5173",
+    origin: "https://passguard0.vercel.app",
     credentials: true,
 }))
 
