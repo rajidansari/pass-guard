@@ -82,7 +82,7 @@ module.exports.loginUser = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            maxAge: 60 * 60 * 1000, //1hour ----- need to change later
+            maxAge: 10 * 60 * 60 * 1000, //1hour ----- need to change later
         });
         res.status(200).json({ message: "Logged in successfully", user });
     } catch (error) {
