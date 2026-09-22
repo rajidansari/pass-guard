@@ -4,7 +4,6 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-
 const connectDB = require("./db/db");
 
 // routes
@@ -20,11 +19,13 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors({
-    // origin: "https://passguard0.vercel.app",
-    origin: "https://passguard0.vercel.app",
-    credentials: true,
-}))
+app.use(
+    cors({
+        // origin: "http://localhost:5173",
+        origin: "https://passguard0.vercel.app",
+        credentials: true,
+    }),
+);
 
 app.get("/", (req, res) => {
     res.send("Pass Guard, Manager.");
@@ -32,7 +33,6 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoutes);
 app.use("/password", passwordRoutes);
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
